@@ -1,19 +1,21 @@
-import { Link } from "react-router-dom";
-const Alert = ({ message }) => {
-  return (
-    <div className="alert alert-danger w-75 m-auto" role="alert">
-      <h4 className="alert-heading">Error: {message.title}</h4>
-      <p>{message.msg}</p>
-      {message.showBtn ? (
-        <>
-          <hr />
-          <Link to="/" className="btn btn-block btn-danger">
-            Go to Home
-          </Link>{" "}
-        </>
-      ) : null}
-    </div>
-  );
-};
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-export default Alert;
+const SwalError = withReactContent(Swal);
+
+export const AlertError = ({ title, message }) => {
+  SwalError.fire({
+    title: title,
+    text: message,
+    icon: "error",
+  });
+};
+const SwalSuccess = withReactContent(Swal);
+export const AlertSucces = ({ title, message }) => {
+  SwalSuccess.fire({
+    title: title,
+    text: message,
+    icon: "success",
+    button: "Acept",
+  });
+};

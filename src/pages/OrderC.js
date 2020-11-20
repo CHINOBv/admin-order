@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import { withRouter, Link } from "react-router-dom";
 
-import Alert from "../components/Alert";
+import { AlertError, AlertSucces } from "../components/Alert";
 import { getProducts } from "../utils/FetchAPI";
 
 const OrderC = (props) => {
@@ -23,24 +23,23 @@ const OrderC = (props) => {
         const datas = JSON.parse(localStorage.getItem("products"));
         if (datas) {
           const data = datas.filter((data) => data.orderId === id);
-          setProducts([...res.data.order.items, ...data]);
+          setProducts(() => [...res.data.order.items, ...data]);
         }
       }) //If not exist the order show Alert
-      .catch((e) => setShowAlert(true));
+      .catch((e) => {
+        AlertError({
+          title: "Order Not Found",
+          message: "We could not find your order, Please verify your URL",
+          showBtn: true,
+        });
+        return setShowAlert(true);
+      });
   }, []);
   //Create Format of date for show
   const createdAt = new Date(OrderInf.dates?.createdAt);
   return (
     <>
-      {showAlert ? (
-        <Alert
-          message={{
-            title: "Order Not Found",
-            msg: "We could not find your order, Please verify your URL",
-            showBtn: true,
-          }}
-        />
-      ) : (
+      {showAlert ? null : (
         <div className="container">
           <div className="row row-cols">
             <div className="col-md-4 col-sm w-100 mb-4">
@@ -56,15 +55,24 @@ const OrderC = (props) => {
                   Crated At: {createdAt.toLocaleString("es-MX")}
                 </li>
                 <li className="list-group-item">
-                  Total: {OrderInf.totals?.total}
-                </li>
-                <li className="list-group-item">
                   <Link
                     to={`/order/${id}/add-product`}
-                    className="btn btn-primary d-block "
+                    className="btn  d-block btn-outline-primary "
                   >
                     Add Product
                   </Link>
+
+                  <button
+                    onClick={() =>
+                      AlertSucces({
+                        title: "Payment Made",
+                        message: "Your payment has been successful",
+                      })
+                    }
+                    className="btn btn-success d-block w-100 mt-4"
+                  >
+                    Pay
+                  </button>
                 </li>
               </ul>
             </div>

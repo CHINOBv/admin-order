@@ -27,11 +27,7 @@ const Home = () => {
             <tr key={Order.id}>
               <td>{Order.number}</td>
               <td>
-                <Link
-                  to={`/order/${Order.id}`}
-                >
-                  {Order.name}
-                </Link>
+                <Link to={`/order/${Order.id}`}>{Order.name}</Link>
               </td>
               <td style={{ textTransform: "uppercase" }}>
                 {Order.status.financial}

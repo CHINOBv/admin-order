@@ -1,27 +1,33 @@
 import { useState } from "react";
 
-import Alert from "../components/Alert";
+import { AlertError, AlertSucces } from "../components/Alert";
 import { v4 as uuidV4 } from "uuid";
 
 const AddProduct = ({ history, match }) => {
   //console.log(history);
   const { id } = match.params;
-  const [sku, setSKU] = useState("");
+  const [sku, setSku] = useState("");
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
 
-  const [ShowAlert, setShowAlert] = useState(false);
+  const [validSku, setValidSku] = useState("");
+  const [validName, setValidName] = useState("");
+  const [validQuantity, setValidQuantity] = useState("");
+  const [validPrice, setValidPrice] = useState("");
 
   const addProduct = (e) => {
     e.preventDefault();
 
     if (!sku.trim() || !name.trim() || quantity <= 0 || price <= 0) {
-      setShowAlert(true);
+      AlertError({
+          title: "All Fields Are Required",
+          message: "Please Fill All Fields",
+      });
+
       return;
     }
 
-    setShowAlert(false);
     let newProduct = {
       id: uuidV4(),
       sku,
@@ -37,6 +43,15 @@ const AddProduct = ({ history, match }) => {
       "products",
       productsLS ? JSON.stringify(productsLS) : JSON.stringify([newProduct])
     );
+    AlertSucces({
+      title: "Added product",
+      message: "The Product has been successfully Added to the Order",
+    });
+
+    setName("");
+    setSku("");
+    setQuantity(0);
+    setPrice(0);
   };
 
   return (
@@ -49,14 +64,6 @@ const AddProduct = ({ history, match }) => {
           >
             Add New Product
           </h5>
-          {ShowAlert ? (
-            <Alert
-              message={{
-                title: "All Fields Are Required",
-                msg: "Please Fill All Fields",
-              }}
-            />
-          ) : null}
           <form className="card-body" onSubmit={(e) => addProduct(e)}>
             <div className="form m-auto">
               <div className="form-group col-md-8 m-auto">
@@ -65,14 +72,15 @@ const AddProduct = ({ history, match }) => {
                   required
                   autoComplete="off"
                   type="text"
-                  className={`form-control mb-md-3 ${
-                    !sku.trim() ? "is-invalid" : "is-valid"
-                  }`}
+                  className={`form-control mb-md-3 ${validSku}`}
                   id="sku"
                   placeholder="sku for this product..."
                   autoFocus
                   value={sku}
-                  onChange={(e) => setSKU(e.target.value)}
+                  onChange={(e) => setSku(e.target.value)}
+                  onBlur={() =>
+                    setValidSku(!sku.trim() ? "is-invalid" : "is-valid")
+                  }
                 />
                 <div className="invalid-feedback">Please Add a SKU</div>
               </div>
@@ -82,13 +90,14 @@ const AddProduct = ({ history, match }) => {
                   required
                   autoComplete="off"
                   type="text"
-                  className={`form-control mb-md-3 ${
-                    !name.trim() ? "is-invalid" : "is-valid"
-                  }`}
+                  className={`form-control mb-md-3 ${validName}`}
                   id="name"
                   placeholder="name for this product..."
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onBlur={() =>
+                    setValidName(!name.trim() ? "is-invalid" : "is-valid")
+                  }
                 />
                 <div className="invalid-feedback">Please Add a Name</div>
               </div>
@@ -100,13 +109,14 @@ const AddProduct = ({ history, match }) => {
                   required
                   autoComplete="off"
                   type="number"
-                  className={`form-control ${
-                    quantity <= 0 ? "is-invalid" : "is-valid"
-                  }`}
+                  className={`form-control ${validQuantity}`}
                   id="sku"
                   placeholder="0"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
+                  onBlur={() =>
+                    setValidQuantity(quantity <= 0 ? "is-invalid" : "is-valid")
+                  }
                 />
                 <div className="invalid-feedback">Please Add a Quantity</div>
               </div>
@@ -121,13 +131,14 @@ const AddProduct = ({ history, match }) => {
                     formNoValidate
                     autoComplete="off"
                     type="number"
-                    className={`form-control ${
-                      price <= 0 ? "is-invalid" : "is-valid"
-                    }`}
+                    className={`form-control ${validPrice}`}
                     id="name"
                     placeholder="0"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
+                    onBlur={() =>
+                      setValidPrice(price <= 0 ? "is-invalid" : "is-valid")
+                    }
                   />
                   <div className="invalid-feedback">Please Add a Price</div>
                 </div>
@@ -142,9 +153,11 @@ const AddProduct = ({ history, match }) => {
               <div className="col-md">
                 <button
                   className="btn btn-block btn-outline-danger"
-                  onClick={() => history.goBack()}
+                  onClick={() => history.push(`/order/${id}`)}
                 >
-                  Cancel
+                  {!sku.trim() && !name.trim() && quantity <= 0 && price <= 0
+                    ? "Go Back"
+                    : "Cancel"}
                 </button>
               </div>
             </div>

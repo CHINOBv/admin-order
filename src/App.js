@@ -1,24 +1,24 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Header from './components/Header';
-import Home from './pages/Home';
-import OrderC from './pages/OrderC';
-import AddProduct from './pages/AddProduct';
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import OrderC from "./pages/OrderC";
+import AddProduct from "./pages/AddProduct";
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
-  
-
   return (
-      <Router>
-        <Header/>
-        <div className='container mb-4'>
+    <Router>
+      <Header />
+      <div className="container mb-4">
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/order/:id' component={OrderC}/>
-          <Route exact path='/order/:id/add-product' component={AddProduct}/>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/order/:id" component={OrderC} />
+          <Route exact path="/order/:id/add-product" component={AddProduct} />
+          <Route path component={PageNotFound}/>
         </Switch>
-        </div>
-      </Router>
+      </div>
+    </Router>
   );
 }
 
