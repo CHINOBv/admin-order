@@ -1,25 +1,14 @@
 import { useState, useEffect } from "react";
 
-import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Home = () => {
-  let URL = "https://eshop-deve.herokuapp.com/api/v2/orders";
+import { getOrders } from "../utils/FetchAPI";
 
-  const [Orders, setOrders] = useState([]);
+const Home = () => {
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const getOreders = async () => {
-      let response = await axios(URL, {
-        headers: {
-          Authorization:
-            "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwUGFINU55VXRxTUkzMDZtajdZVHdHV3JIZE81cWxmaCIsImlhdCI6MTYwNTY0NDA0NzA1OH0.skfIY_7CAANkxmhoq37OI4jYRE8flx1ENq1v1VaRevJiroYNFQYz7Oy6hL1YZ1OJkevXSQFuLMHTqY0w6d5nPQ",
-        },
-      });
-
-      setOrders(response.data.orders);
-    };
-    getOreders();
+    getOrders().then(response => setOrders(response.data.orders))    
   }, []);
 
   return (
@@ -34,7 +23,7 @@ const Home = () => {
           </tr>
         </thead>
         <tbody>
-          {Orders.map((Order) => (
+          {orders.map((Order) => (
             <tr key={Order.id}>
               <td>{Order.number}</td>
               <td>
