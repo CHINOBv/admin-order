@@ -20,7 +20,11 @@ const OrderC = (props) => {
         //Save info of Order on State
         setOrderInf(res.data.order);
         //Save Products on State
-        setProducts(res.data.order.items);
+        const datas = JSON.parse(localStorage.getItem("products"));
+        if (datas) {
+          const data = datas.filter((data) => data.orderId === id);
+          setProducts([...res.data.order.items, ...data]);
+        }
       }) //If not exist the order show Alert
       .catch((e) => setShowAlert(true));
   }, []);
@@ -66,7 +70,7 @@ const OrderC = (props) => {
             </div>
             <div className="col-md-8 col-sm-12">
               <table className="table table-striped table-responsive-sm">
-                <thead className="thead-dark">
+                <thead style={{ backgroundColor: "#0984e3", color: "#fff" }}>
                   <tr className="">
                     <th scope="col">SKU</th>
                     <th scope="col">Name</th>
@@ -76,7 +80,7 @@ const OrderC = (props) => {
                 </thead>
                 <tbody>
                   {Products.map((Product) => (
-                    <tr className="" key={Product.id}>
+                    <tr key={Product.id}>
                       <td>{Product.sku}</td>
                       <td>{Product.name}</td>
                       <td>{Product.fulfillment.quantity}</td>

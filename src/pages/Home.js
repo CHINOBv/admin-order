@@ -8,13 +8,13 @@ const Home = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    getOrders().then(response => setOrders(response.data.orders))    
+    getOrders().then((response) => setOrders(response.data.orders));
   }, []);
 
   return (
     <>
       <table className="table table-striped">
-        <thead className="thead-dark">
+        <thead style={{ backgroundColor: "#0984e3", color: "#fff" }}>
           <tr className="">
             <th scope="col">Number</th>
             <th scope="col">Name</th>
@@ -27,7 +27,11 @@ const Home = () => {
             <tr key={Order.id}>
               <td>{Order.number}</td>
               <td>
-                <Link to={`/order/${Order.id}`}>{Order.name}</Link>
+                <Link
+                  to={`/order/${Order.id}`}
+                >
+                  {Order.name}
+                </Link>
               </td>
               <td style={{ textTransform: "uppercase" }}>
                 {Order.status.financial}
