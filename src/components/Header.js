@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-      <header className="navbar navbar-expand-lg navbar-light bg-light mb-4">
+      <header className="navbar navbar-expand-md navbar-light bg-light mb-4 w-100">
         <div className="container">
           <Link className="navbar-brand" to='/'>
             Ordenes
