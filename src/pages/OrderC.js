@@ -41,6 +41,7 @@ const OrderC = (props) => {
           message={{
             title: "Order Not Found",
             msg: "We could not find your order, Please verify your URL",
+            showBtn: true,
           }}
         />
       ) : (
