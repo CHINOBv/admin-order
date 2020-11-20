@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-      <header className="navbar navbar-expand-md navbar-light bg-light mb-4 w-100">
-        <div className="container">
+      <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4 w-100">
           <Link className="navbar-brand" to='/'>
-            Ordenes
+            Tendencys Orders And Products
           </Link>
-          <button>Añadir Orden</button>
-        </div>
-      </header>
+      </nav>
   );
 };
 

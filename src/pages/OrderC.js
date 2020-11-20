@@ -2,11 +2,12 @@
 import { useState, useEffect } from "react";
 
 import axios from "axios";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Alert from "../components/Alert";
 
 const OrderC = (props) => {
-  let URL = `https://eshop-deve.herokuapp.com/api/v2/orders/${props.match.params.id}`;
+  const {id} = props.match.params;
+  let URL = `https://eshop-deve.herokuapp.com/api/v2/orders/${id}`;
 
   const [Products, setProducts] = useState([]);
   const [OrderInf, setOrderInf] = useState([]);
@@ -47,7 +48,7 @@ const OrderC = (props) => {
           <div className="row row-cols">
             <div className="col-md-4 col-sm w-100 mb-4">
               <ul className="list-group">
-                <li className="list-group-item active">Order Information</li>
+                <li className="list-group-item active text-center">Order Information</li>
                 <li className="list-group-item">Order ID: {OrderInf.id}</li>
                 <li className="list-group-item">
                   Order Number: {OrderInf.number}
@@ -57,6 +58,9 @@ const OrderC = (props) => {
                 </li>
                 <li className="list-group-item">
                   Total: {OrderInf.totals?.total}
+                </li>
+                <li className='list-group-item'>
+                  <Link to={`/order/${id}/add-product`} className='btn btn-primary d-block '>Add Product</Link>
                 </li>
               </ul>
             </div>
