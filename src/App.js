@@ -15,7 +15,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/order/:id" component={OrderC} />
           <Route exact path="/order/:id/add-product" component={AddProduct} />
-          <Route path component={PageNotFound}/>
+          <Route component={PageNotFound}/>
         </Switch>
       </div>
     </Router>
