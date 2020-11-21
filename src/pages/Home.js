@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <table className="table table-striped">
+      <table className="table table-striped table-responsive-sm">
         <thead style={{ backgroundColor: "#0984e3", color: "#fff" }}>
           <tr className="">
             <th scope="col">Number</th>
@@ -30,8 +30,9 @@ const Home = () => {
                 <Link to={`/order/${order.id}`} style={{
                   backgroundColor: '#44bd32',
                   color: '#fff',
-                  padding: 5,
+                  padding: 4,
                   borderRadius: 19,
+                  margin: 'auto',
                   textDecoration: 'none',
                 }}>{order.name}</Link>
               </td>
