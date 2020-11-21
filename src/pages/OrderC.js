@@ -9,8 +9,8 @@ import { getProducts } from "../utils/FetchAPI";
 const OrderC = (props) => {
   const { id } = props.match.params;
 
-  const [Products, setProducts] = useState([]);
-  const [OrderInf, setOrderInf] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [orderInf, setOrderInf] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const OrderC = (props) => {
       .then((res) => {
         //Save info of Order on State
         setOrderInf(res.data.order);
-        //Save Products on State
+        //Save products on State
         const datas = JSON.parse(localStorage.getItem("products"));
         if (datas) {
           const data = datas.filter((data) => data.orderId === id);
@@ -36,7 +36,7 @@ const OrderC = (props) => {
       });
   }, []);
   //Create Format of date for show
-  const createdAt = new Date(OrderInf.dates?.createdAt);
+  const createdAt = new Date(orderInf.dates?.createdAt);
   return (
     <>
       {showAlert ? null : (
@@ -47,9 +47,9 @@ const OrderC = (props) => {
                 <li className="list-group-item active text-center">
                   Order Information
                 </li>
-                <li className="list-group-item">Order ID: {OrderInf.id}</li>
+                <li className="list-group-item">Order ID: {orderInf.id}</li>
                 <li className="list-group-item">
-                  Order Number: {OrderInf.number}
+                  Order Number: {orderInf.number}
                 </li>
                 <li className="list-group-item">
                   Crated At: {createdAt.toLocaleString("es-MX")}
@@ -87,12 +87,12 @@ const OrderC = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Products.map((Product) => (
-                    <tr key={Product.id}>
-                      <td>{Product.sku}</td>
-                      <td>{Product.name}</td>
-                      <td>{Product.fulfillment.quantity}</td>
-                      <td>{Product.price}</td>
+                  {products.map((product) => (
+                    <tr key={product.id}>
+                      <td>{product.sku}</td>
+                      <td>{product.name}</td>
+                      <td>{product.fulfillment.quantity}</td>
+                      <td>{product.price}</td>
                     </tr>
                   ))}
                 </tbody>

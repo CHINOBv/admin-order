@@ -23,16 +23,22 @@ const Home = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((Order) => (
-            <tr key={Order.id}>
-              <td>{Order.number}</td>
+          {orders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.number}</td>
               <td>
-                <Link to={`/order/${Order.id}`}>{Order.name}</Link>
+                <Link to={`/order/${order.id}`} style={{
+                  backgroundColor: '#44bd32',
+                  color: '#fff',
+                  padding: 5,
+                  borderRadius: 19,
+                  textDecoration: 'none',
+                }}>{order.name}</Link>
               </td>
               <td style={{ textTransform: "uppercase" }}>
-                {Order.status.financial}
+                {order.status.financial}
               </td>
-              <td>{Order.totals.total}</td>
+              <td>{order.totals.total}</td>
             </tr>
           ))}
         </tbody>
