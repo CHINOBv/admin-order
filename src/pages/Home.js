@@ -12,11 +12,13 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <table className="table table-striped table-responsive-sm">
         <thead style={{ backgroundColor: "#0984e3", color: "#fff" }}>
           <tr className="">
-            <th scope="col">Number</th>
+            <th scope="col" className="m-auto w-25">
+              Number
+            </th>
             <th scope="col">Name</th>
             <th scope="col">Status</th>
             <th scope="col">Total</th>
@@ -27,12 +29,13 @@ const Home = () => {
             let regx = /#/g;
             let name = order?.name?.replace(regx, "");
             return (
-              <tr key={order.id}>
+              <tr key={order.id} style={{ height: 1 }}>
                 <td>{order.number}</td>
                 <td>
                   <Link
                     to={`/order/${order.id}`}
                     style={{ textDecoration: "none" }}
+                    className="w-25 "
                   >
                     <p
                       style={{
@@ -40,12 +43,11 @@ const Home = () => {
                         fontSize: 18,
                         backgroundColor: "#44bd32",
                         color: "#fff",
-                        padding: 0,
                         borderRadius: 19,
                         margin: "auto",
                         fontWeight: "bold",
                       }}
-                      className="w-75"
+                      className="w-100"
                     >
                       {name}
                     </p>
@@ -60,7 +62,7 @@ const Home = () => {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <div className="container mb-4">
+      <div className="container-fluid mb-4">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/order/:id" component={OrderC} />
