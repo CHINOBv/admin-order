@@ -25,7 +25,7 @@ const Home = () => {
         <tbody>
           {orders.map((order) => {
             let regx = /#/g;
-            let name = order?.name?.replace(regx, '')
+            let name = order?.name?.replace(regx, "");
             return (
               <tr key={order.id}>
                 <td>{order.number}</td>
@@ -43,7 +43,7 @@ const Home = () => {
                         padding: 0,
                         borderRadius: 19,
                         margin: "auto",
-                        fontWeight: 'bold'
+                        fontWeight: "bold",
                       }}
                       className="w-75"
                     >

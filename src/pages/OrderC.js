@@ -55,6 +55,12 @@ const OrderC = (props) => {
                   Crated At: {createdAt.toLocaleString("es-MX")}
                 </li>
                 <li className="list-group-item">
+                  Status:{" "}
+                  <span className="text-capitalize">
+                    {orderInf.status?.financial}
+                  </span>
+                </li>
+                <li className="list-group-item">
                   <Link
                     to={`/order/${id}/add-product`}
                     className="btn  d-block btn-outline-primary "
